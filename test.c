@@ -270,7 +270,9 @@ TEST(Worst_student_many, LL_tests) {
         ll_insert_last(&s_students[i].node, T_ initial);
     }
 
-    ASSERT_EQ(2.00, student_worst_performer(&T_ list)->gpa, "%f");
+    struct student *worst = student_worst_performer(&T_ list);
+    ASSERT_NON_NULL(worst);
+    ASSERT_EQ(2.00, worst->gpa, "%f");
 }
 
 TEST(Valedictorian_homeschooled, LL_tests) {
@@ -283,7 +285,9 @@ TEST(Valedictorian_classmates, LL_tests) {
         ll_insert_last(&s_students[i].node, T_ initial);
     }
 
-    ASSERT_EQ(4.00, student_valedictorian(&T_ list)->gpa, "%f");
+    struct student *valedictorian = student_valedictorian(&T_ list);
+    ASSERT_NON_NULL(valedictorian);
+    ASSERT_EQ(4.00, valedictorian->gpa, "%f");
 }
 
 TEST(Honour_roll_no_qualifiers, LL_tests) {
@@ -297,10 +301,12 @@ TEST(Honour_roll_some_qualify, LL_tests) {
     }
 
     // Some of the sample students do qualify.  Good for them!
-    struct ll_node *honour_roll = &student_honour_roll(&T_ list)->node;
-    ASSERT_EQ((size_t) 3, ll_size(honour_roll), "%zu");
-    for (; ll_has_next(honour_roll); honour_roll = ll_next(honour_roll)) {
-        ASSERT_GE(LL_ENTRY(honour_roll, struct student, node)->gpa, 3.50, "%f");
+    struct student *honour_roll = student_honour_roll(&T_ list);
+    ASSERT_NON_NULL(honour_roll);
+    struct ll_node *honour_node = &honour_roll->node;
+    ASSERT_EQ((size_t) 3, ll_size(honour_node), "%zu");
+    for (; ll_has_next(honour_node); honour_node = ll_next(honour_node)) {
+        ASSERT_GE(LL_ENTRY(honour_node, struct student, node)->gpa, 3.50, "%f");
     }
 }
 
