@@ -12,7 +12,6 @@ void ll_init(struct ll_node *node) {
     head.next = node;
     head.prev = node;
     header = &head;
-
 }
 
 bool ll_has_next(struct ll_node *node) {
@@ -39,7 +38,7 @@ struct ll_node *ll_next(struct ll_node *node) {
 struct ll_node *ll_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    if(ll_has_prev)
+    if(ll_has_prev(node))
     return node->prev;
 }
 
