@@ -26,37 +26,47 @@ bool ll_has_prev(struct ll_node *node) {
 struct ll_node *ll_next(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    if(ll_has_next(node)) {
-        return node->next;
-    }
-    return NULL;
+    return node->next;
+    
 }
 
 struct ll_node *ll_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    if(ll_has_prev(node)) {
-        return node->prev;
-    }
-    return NULL;
+    return node->prev;
+    
 }
 
 size_t ll_size(struct ll_node *head) {
     assert(head != NULL);
     // TODO: Implement your solution here.
-    return 0;
+    size_t size = 0;
+    struct ll_node *ptr = head;
+    while(ll_has_next(ptr)) {
+        size++;
+        ptr = ll_next(ptr);
+    }
+    return size;
 }
 
 struct ll_node *ll_head(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
-    return NULL;
+    struct ll_node *ptr = list;
+    while(ll_has_prev(ptr)) {
+        ptr = ll_prev(ptr);
+    }
+    return ptr;
 }
 
 struct ll_node *ll_tail(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
-    return NULL;
+    struct ll_node *ptr = list;
+    while(ll_has_next(ptr)) {
+        ptr = ll_next(ptr);
+    }
+    return ptr;
 }
 
 struct ll_node *ll_get(struct ll_node *node, size_t index) {
