@@ -1,33 +1,46 @@
 #include <assert.h>
 #include "linked_list.h"
 
+//instance variables
+struct ll_node *header;
+
+
 void ll_init(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
+    struct ll_node head;
+    head.next = node;
+    head.prev = node;
+    header = &head;
+
 }
 
 bool ll_has_next(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    return false;
+    return node->next != NULL;
 }
 
 bool ll_has_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    return false;
+    return node->prev != NULL;
 }
 
 struct ll_node *ll_next(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
+    if(ll_has_next(node)) {
+        return node->next;
+    }
     return NULL;
 }
 
 struct ll_node *ll_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    return NULL;
+    if(ll_has_prev)
+    return node->prev;
 }
 
 size_t ll_size(struct ll_node *head) {
@@ -51,6 +64,39 @@ struct ll_node *ll_tail(struct ll_node *list) {
 struct ll_node *ll_get(struct ll_node *node, size_t index) {
     assert(node != NULL);
     // TODO: Implement your solution here.
+
+    // is this assertion needed?
+    // assert(index < size);
+
+    //can we start from the node pointer from the start, w/o while loop?
+
+    // old code
+    // struct ll_node *ptr = header.next;
+    // bool node_found = false;
+    // while(ptr != &header && !node_found) { 
+    //     if(ptr != node) {
+    //         ptr = ptr->next;
+    //     }
+    //     else {
+    //         node_found = true;
+    //     }
+    // }
+    // if(node_found) {
+    //     for(int i = 0; i < index; i++) {
+    //         ptr = ptr -> next;
+    //     }
+    //     return ptr;
+    // }
+    // return NULL;
+
+    // //what i think should work
+    // for(int i = 0; i < index; i++) {
+    //     node = ll_next(node);
+    //     if(node == header) { //how do I compare 2 linked list nodes? seg fault
+    //          return NULL;
+    //     }
+    // }
+    // return node;
     return NULL;
 }
 
