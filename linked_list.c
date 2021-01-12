@@ -2,16 +2,13 @@
 #include "linked_list.h"
 
 //instance variables
-struct ll_node *header;
 
 
 void ll_init(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    struct ll_node head;
-    head.next = node;
-    head.prev = node;
-    header = &head;
+    node->next = NULL;
+    node->prev = NULL;
 }
 
 bool ll_has_next(struct ll_node *node) {
@@ -38,8 +35,10 @@ struct ll_node *ll_next(struct ll_node *node) {
 struct ll_node *ll_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    if(ll_has_prev(node))
-    return node->prev;
+    if(ll_has_prev(node)) {
+        return node->prev;
+    }
+    return NULL;
 }
 
 size_t ll_size(struct ll_node *head) {
