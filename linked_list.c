@@ -2,18 +2,14 @@
 #include "linked_list.h"
 
 //instance variables
-struct ll_node *header; 
+struct ll_node header; 
 
 
 void ll_init(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-
-    struct ll_node hed = {
-        .next = node,
-        .prev = node,
-    };
-    header = &hed;
+    header.next = node;
+    header.prev = node;
 }
 
 bool ll_has_next(struct ll_node *node) {
@@ -21,7 +17,7 @@ bool ll_has_next(struct ll_node *node) {
     // TODO: Implement your solution here.
 
     printf("\nnode -> next == %p, header = %p", node->next, header);
-    if(node->next == header || node->next == NULL) {
+    if(node->next == &header || node->next == NULL) {
         return false;
     }
     return true;
@@ -32,7 +28,7 @@ bool ll_has_prev(struct ll_node *node) {
     // TODO: Implement your solution here.
     
     printf("\nnode -> prev == %p, header = %p\n", node->next, header);
-    if(node->prev == header || node->prev == NULL) {
+    if(node->prev == &header || node->prev == NULL) {
         return false;
     }
     return true;
@@ -76,28 +72,14 @@ struct ll_node *ll_head(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    struct ll_node *ptr = list;
-    while(ll_has_prev(ptr)) {
-        ptr = ll_prev(ptr);
-    }
-    return ptr;
-
-    //Why doesn't this work?
-    //return header->next;
+    return header.next;
 }
 
 struct ll_node *ll_tail(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    struct ll_node *ptr = list;
-    while(ll_has_next(ptr)) {
-        ptr = ll_next(ptr);
-    }
-    return ptr;
-
-    //Why doesn't this work?
-    //return header->prev;
+    return header.prev;
 }
 
 struct ll_node *ll_get(struct ll_node *node, size_t index) {
