@@ -9,10 +9,6 @@ void ll_init(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
 
-    // no header style
-    // node->next = NULL;
-    // node->prev = NULL;
-
     struct ll_node hed = {
         .next = node,
         .prev = node,
@@ -23,9 +19,6 @@ void ll_init(struct ll_node *node) {
 bool ll_has_next(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-
-    // no header style
-    // return node->next != NULL;
 
     printf("\nnode -> next == %p, header = %p", node->next, header);
     if(node->next == header || node->next == NULL) {
@@ -38,8 +31,6 @@ bool ll_has_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
     
-    // no header style
-    // return node->prev != NULL;
     printf("\nnode -> prev == %p, header = %p\n", node->next, header);
     if(node->prev == header || node->prev == NULL) {
         return false;
@@ -50,9 +41,6 @@ bool ll_has_prev(struct ll_node *node) {
 struct ll_node *ll_next(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    
-    // no header style
-    // return node->next;
 
     if(ll_has_next(node)) {
         return node->next;
@@ -62,10 +50,7 @@ struct ll_node *ll_next(struct ll_node *node) {
 
 struct ll_node *ll_prev(struct ll_node *node) {
     assert(node != NULL);
-    
-    // no header style
     // TODO: Implement your solution here.
-    // return node->prev;
 
     if(ll_has_prev(node)) {
         return node->prev;
@@ -76,6 +61,7 @@ struct ll_node *ll_prev(struct ll_node *node) {
 size_t ll_size(struct ll_node *head) {
     assert(head != NULL);
     // TODO: Implement your solution here.
+
     size_t size = 1;
     struct ll_node *ptr = head;
     
@@ -90,28 +76,28 @@ struct ll_node *ll_head(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    // no header style
-    // struct ll_node *ptr = list;
-    // while(ll_has_prev(ptr)) {
-    //     ptr = ll_prev(ptr);
-    // }
-    // return ptr;
+    struct ll_node *ptr = list;
+    while(ll_has_prev(ptr)) {
+        ptr = ll_prev(ptr);
+    }
+    return ptr;
 
-    return ll_next(header);
+    //Why doesn't this work?
+    //return header->next;
 }
 
 struct ll_node *ll_tail(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    // no header style
-    // struct ll_node *ptr = list;
-    // while(ll_has_next(ptr)) {
-    //     ptr = ll_next(ptr);
-    // }
-    // return ptr;
+    struct ll_node *ptr = list;
+    while(ll_has_next(ptr)) {
+        ptr = ll_next(ptr);
+    }
+    return ptr;
 
-    return ll_prev(header);
+    //Why doesn't this work?
+    //return header->prev;
 }
 
 struct ll_node *ll_get(struct ll_node *node, size_t index) {
@@ -120,7 +106,7 @@ struct ll_node *ll_get(struct ll_node *node, size_t index) {
 
     // is this assertion needed?
     // assert(index < size);
-    
+
     //what i think should work
     struct ll_node *ptr = node;
     for(int i = 0; i < index; i++) {
