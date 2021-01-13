@@ -16,7 +16,7 @@ bool ll_has_next(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
 
-    printf("\nnode -> next == %p, header = %p", node->next, header);
+    //printf("\nnode -> next == %p, header = %p", node->next, header);
     if(node->next == &header || node->next == NULL) {
         return false;
     }
@@ -27,7 +27,7 @@ bool ll_has_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
     
-    printf("\nnode -> prev == %p, header = %p\n", node->next, header);
+    //printf("\nnode -> prev == %p, header = %p\n", node->next, header);
     if(node->prev == &header || node->prev == NULL) {
         return false;
     }
@@ -101,27 +101,42 @@ void ll_insert_before(struct ll_node *new, struct ll_node *existing) {
     assert(new != NULL);
     assert(existing != NULL);
     // TODO: Implement your solution here.
-    struct ll_node *oldPrev = existing->prev;
 
+    struct ll_node *old_prev = existing->prev;
+    new->next = existing;
+    new->prev = old_prev;
+    existing->prev = new;
+    old_prev->next = new;
 
 }
 
 void ll_insert_after(struct ll_node *new, struct ll_node *existing) {
     assert(new != NULL);
     assert(existing != NULL);
-    // TODO: Implement your solution here.
+    // TODO: Implement your solution here
+
+    struct ll_node *old_next = existing->next;
+    new->next = old_next;
+    new->prev = existing;
+    old_next->prev = new;
+    existing->next = new;
 }
 
 void ll_insert_first(struct ll_node *new, struct ll_node *list) {
     assert(new != NULL);
     assert(list != NULL);
     // TODO: Implement your solution here.
+
+    ll_insert_before(new, header.next);
+
 }
 
 void ll_insert_last(struct ll_node *new, struct ll_node *list) {
     assert(new != NULL);
     assert(list != NULL);
     // TODO: Implement your solution here.
+
+    ll_insert_after(new, header.prev);
 }
 
 void ll_remove(struct ll_node *node) {
