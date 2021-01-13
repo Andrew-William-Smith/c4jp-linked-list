@@ -88,7 +88,7 @@ struct ll_node *ll_get(struct ll_node *node, size_t index) {
     // is this assertion needed?
     // assert(index < size);
 
-    for(int i = 0; i < index; i++) {
+    for(long unsigned int i = 0; i < index; i++) {
         node = ll_next(node);
         if(node == NULL) { //how do I compare 2 linked list nodes? seg fault
              return NULL;
@@ -101,12 +101,12 @@ void ll_insert_before(struct ll_node *new, struct ll_node *existing) {
     assert(new != NULL);
     assert(existing != NULL);
     // TODO: Implement your solution here.
-
+     
     struct ll_node *old_prev = existing->prev;
     new->next = existing;
     new->prev = old_prev;
+    old_prev->next = new;// for some reason, only this line is throwing a seg fault.
     existing->prev = new;
-    old_prev->next = new;
 
 }
 
@@ -116,10 +116,8 @@ void ll_insert_after(struct ll_node *new, struct ll_node *existing) {
     // TODO: Implement your solution here
 
     struct ll_node *old_next = existing->next;
-    new->next = old_next;
-    new->prev = existing;
-    old_next->prev = new;
-    existing->next = new;
+    
+
 }
 
 void ll_insert_first(struct ll_node *new, struct ll_node *list) {
