@@ -1,37 +1,24 @@
 #include <assert.h>
 #include "linked_list.h"
 
-//instance variables
-struct ll_node header; 
-
 
 void ll_init(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    header.next = node;
-    header.prev = node;
+    node->next = NULL;
+    node->prev = NULL;
 }
 
 bool ll_has_next(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-
-    //printf("\nnode -> next == %p, header = %p", node->next, header);
-    if(node->next == &header || node->next == NULL) {
-        return false;
-    }
-    return true;
+    return node->next != NULL;
 }
 
 bool ll_has_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
-    
-    //printf("\nnode -> prev == %p, header = %p\n", node->next, header);
-    if(node->prev == &header || node->prev == NULL) {
-        return false;
-    }
-    return true;
+    return node->prev != NULL;
 }
 
 struct ll_node *ll_next(struct ll_node *node) {
@@ -70,15 +57,20 @@ size_t ll_size(struct ll_node *head) {
 struct ll_node *ll_head(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
-
-    return ll_next(&header);
+    while(ll_has_prev(list)) {
+        list = ll_prev(list);
+    }
+    return list;
 }
 
 struct ll_node *ll_tail(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    return ll_prev(&header);
+    while(ll_has_next(list)) {
+        list = ll_next(list);
+    }
+    return list;
 }
 
 struct ll_node *ll_get(struct ll_node *node, size_t index) {
@@ -103,9 +95,13 @@ void ll_insert_before(struct ll_node *new, struct ll_node *existing) {
     // TODO: Implement your solution here.
      
     struct ll_node *old_prev = existing->prev;
+    if(ll_has_prev(existing)) {
+        old_prev->next = new;// for some reason, only this line is throwing a seg fault.
+    }
+    //maybe this if is the cause. How can our existing node not have a prev? Unless, the test 
+    //node never had a prev... Then, how was the header node implementation supposed to be done?
     new->next = existing;
     new->prev = old_prev;
-    old_prev->next = new;// for some reason, only this line is throwing a seg fault.
     existing->prev = new;
 
 }
@@ -116,6 +112,12 @@ void ll_insert_after(struct ll_node *new, struct ll_node *existing) {
     // TODO: Implement your solution here
 
     struct ll_node *old_next = existing->next;
+    if(ll_has_next(existing)) {
+        old_next->prev = new;
+    }
+    new->prev = existing;
+    new->next = old_next;
+    existing->next = new;
     
 
 }
@@ -125,7 +127,7 @@ void ll_insert_first(struct ll_node *new, struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    ll_insert_before(new, header.next);
+    ll_insert_before(new, ll_head(list));
 
 }
 
@@ -134,7 +136,7 @@ void ll_insert_last(struct ll_node *new, struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    ll_insert_after(new, header.prev);
+    ll_insert_after(new, ll_tail(list));
 }
 
 void ll_remove(struct ll_node *node) {
