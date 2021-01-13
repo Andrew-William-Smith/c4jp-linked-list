@@ -59,11 +59,10 @@ size_t ll_size(struct ll_node *head) {
     // TODO: Implement your solution here.
 
     size_t size = 1;
-    struct ll_node *ptr = head;
     
-    while(ll_has_next(ptr)) {
+    while(ll_has_next(head)) {
         size++;
-        ptr = ll_next(ptr);
+        head = ll_next(head);
     }
     return size;
 }
@@ -72,14 +71,14 @@ struct ll_node *ll_head(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    return header.next;
+    return ll_next(&header);
 }
 
 struct ll_node *ll_tail(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
 
-    return header.prev;
+    return ll_prev(&header);
 }
 
 struct ll_node *ll_get(struct ll_node *node, size_t index) {
@@ -89,22 +88,22 @@ struct ll_node *ll_get(struct ll_node *node, size_t index) {
     // is this assertion needed?
     // assert(index < size);
 
-    //what i think should work
-    struct ll_node *ptr = node;
     for(int i = 0; i < index; i++) {
-        ptr = ll_next(ptr);
-        if(ptr == NULL) { //how do I compare 2 linked list nodes? seg fault
+        node = ll_next(node);
+        if(node == NULL) { //how do I compare 2 linked list nodes? seg fault
              return NULL;
         }
     }
-    return ptr;
-    //return NULL;
+    return node;
 }
 
 void ll_insert_before(struct ll_node *new, struct ll_node *existing) {
     assert(new != NULL);
     assert(existing != NULL);
     // TODO: Implement your solution here.
+    struct ll_node *oldPrev = existing->prev;
+
+
 }
 
 void ll_insert_after(struct ll_node *new, struct ll_node *existing) {
