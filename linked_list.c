@@ -154,19 +154,43 @@ struct ll_node *ll_min(struct ll_node *list, ll_comparator_t comparator) {
     assert(list != NULL);
     assert(comparator != NULL);
     // TODO: Implement your solution here.
-    return NULL;
+    struct ll_node *result = list;
+    while(list != NULL) {
+        if(comparator(list, result) < 0) {
+            result = list;
+        }
+        list = ll_next(list);
+    }
+    return result;
 }
 
 struct ll_node *ll_max(struct ll_node *list, ll_comparator_t comparator) {
     assert(list != NULL);
     assert(comparator != NULL);
     // TODO: Implement your solution here.
-    return NULL;
+    struct ll_node *result = list;
+    while(list != NULL) {
+        if(comparator(list, result) > 0) {
+            result = list;
+        }
+        list = ll_next(list);
+    }
+    return result;
 }
 
 struct ll_node *ll_filter(struct ll_node *list, ll_predicate_t predicate) {
     assert(list != NULL);
     assert(predicate != NULL);
     // TODO: Implement your solution here.
+    while(list != NULL) {
+        if(!predicate(list)) {
+            ll_remove(list);
+        }
+        list = ll_next(list);
+    }
+    if(list != NULL) {
+        return ll_head(list);
+    }
     return NULL;
+    
 }
