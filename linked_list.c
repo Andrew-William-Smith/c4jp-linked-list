@@ -40,7 +40,7 @@ struct ll_node *ll_prev(struct ll_node *node) {
 size_t ll_size(struct ll_node *head) {
     assert(head != NULL);
     // TODO: Implement your solution here.
-    size_t size = 0;
+    size_t size = 1;
     struct ll_node *ptr = head;
     while(ll_has_next(ptr)) {
         size++;
