@@ -5,6 +5,7 @@
 void ll_init(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
+
     node->next = NULL;
     node->prev = NULL;
 }
@@ -12,12 +13,14 @@ void ll_init(struct ll_node *node) {
 bool ll_has_next(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
+
     return node->next != NULL;
 }
 
 bool ll_has_prev(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
+
     return node->prev != NULL;
 }
 
@@ -57,6 +60,7 @@ size_t ll_size(struct ll_node *head) {
 struct ll_node *ll_head(struct ll_node *list) {
     assert(list != NULL);
     // TODO: Implement your solution here.
+
     while(ll_has_prev(list)) {
         list = ll_prev(list);
     }
@@ -94,14 +98,11 @@ void ll_insert_before(struct ll_node *new, struct ll_node *existing) {
     assert(existing != NULL);
     // TODO: Implement your solution here.
      
-    struct ll_node *old_prev = existing->prev;
     if(ll_has_prev(existing)) {
-        old_prev->next = new;// for some reason, only this line is throwing a seg fault.
+        existing->prev->next = new;
     }
-    //maybe this if is the cause. How can our existing node not have a prev? Unless, the test 
-    //node never had a prev... Then, how was the header node implementation supposed to be done?
     new->next = existing;
-    new->prev = old_prev;
+    new->prev = existing->prev;
     existing->prev = new;
 
 }
@@ -111,12 +112,11 @@ void ll_insert_after(struct ll_node *new, struct ll_node *existing) {
     assert(existing != NULL);
     // TODO: Implement your solution here
 
-    struct ll_node *old_next = existing->next;
     if(ll_has_next(existing)) {
-        old_next->prev = new;
+        existing->next->prev = new;
     }
     new->prev = existing;
-    new->next = old_next;
+    new->next = existing->next;
     existing->next = new;
     
 
@@ -142,6 +142,12 @@ void ll_insert_last(struct ll_node *new, struct ll_node *list) {
 void ll_remove(struct ll_node *node) {
     assert(node != NULL);
     // TODO: Implement your solution here.
+    if(ll_has_prev(node)) {
+        node->prev->next = node->next;
+    }
+    if(ll_has_next(node)) {
+        node->next->prev = node->prev;
+    }
 }
 
 struct ll_node *ll_min(struct ll_node *list, ll_comparator_t comparator) {
