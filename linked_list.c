@@ -182,15 +182,16 @@ struct ll_node *ll_filter(struct ll_node *list, ll_predicate_t predicate) {
     assert(list != NULL);
     assert(predicate != NULL);
     // TODO: Implement your solution here.
+    struct ll_node *result = NULL;
     while(list != NULL) {
         if(!predicate(list)) {
             ll_remove(list);
         }
+        else if(result == NULL) {
+            result = list;
+        }
         list = ll_next(list);
     }
-    if(list != NULL) {
-        return ll_head(list);
-    }
-    return NULL;
+    return result;
     
 }

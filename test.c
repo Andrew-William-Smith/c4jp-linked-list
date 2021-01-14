@@ -285,6 +285,7 @@ TEST(Valedictorian_classmates, LL_tests) {
         ll_insert_last(&s_students[i].node, T_ initial);
     }
 
+
     struct student *valedictorian = student_valedictorian(&T_ list);
     ASSERT_NON_NULL(valedictorian);
     ASSERT_EQ(4.00, valedictorian->gpa, "%f");

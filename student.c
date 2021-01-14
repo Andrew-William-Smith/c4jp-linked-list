@@ -2,8 +2,8 @@
 #include "student.h"
 
 static int gpa_comparator(struct ll_node *first, struct ll_node *second) {
-    double one = LL_ENTRY(first, struct student, gpa)->gpa;
-    double two = LL_ENTRY(second, struct student, gpa)->gpa;
+    double one = LL_ENTRY(first, struct student, node)->gpa;
+    double two = LL_ENTRY(second, struct student, node)->gpa;
 
     if(one < two) {
         return -1;
@@ -29,7 +29,7 @@ struct student *student_valedictorian(struct student *list) {
 }
 
 static bool honour_roll_check(struct ll_node *check) {
-    double check_gpa = LL_ENTRY(check, struct student, gpa)->gpa;
+    double check_gpa = LL_ENTRY(check, struct student, node)->gpa;
     if(check_gpa < 3.50) {
         return false;
     }
