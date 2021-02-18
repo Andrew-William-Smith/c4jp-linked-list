@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+
 /**
  * Fetch the container of the specified @c TYPE containing an @c ll_node with
  * the name @c LIST_FIELD that is pointed to by @c PTR.  Inspired heavily by the
@@ -11,7 +12,7 @@
  * interface, although somewhat simplified for our purposes.
  */
 #define LL_ENTRY(PTR, TYPE, LIST_FIELD) \
-    ((TYPE *) (((char *) PTR) - offsetof(TYPE, LIST_FIELD)))
+    ((TYPE *) (((char *)PTR) - offsetof(TYPE, LIST_FIELD)))
 
 /**
  * An intrusive structure that contains the crucial elements of a linked list:
@@ -38,7 +39,7 @@ struct ll_node {
 typedef int (*ll_comparator_t)(struct ll_node *, struct ll_node *);
 
 /** A boolean predicate defined on a linked list node. */
-typedef bool (*ll_predicate_t)(struct ll_node *);
+typedef bool (*ll_predicate_t)(struct ll_node *,double cond);
 
 /**
  * Initialise a linked list beginning with the specified node.  This node is
@@ -209,6 +210,6 @@ struct ll_node *ll_max(struct ll_node *list, ll_comparator_t comparator);
  * @return The head of the new, filtered list; if there are no nodes in the list
  *         that satisfy the predicate, return NULL.
  */
-struct ll_node *ll_filter(struct ll_node *list, ll_predicate_t predicate);
+struct ll_node *ll_filter(struct ll_node *list, ll_predicate_t predicate,double cond);
 
 #endif // C4JP_LINKED_LIST_H_INCLUDED
